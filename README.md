@@ -1,6 +1,8 @@
 # keuanganku
 
-A new Flutter project.
+Contoh aplikasi Flutter sederhana dengan halaman welcome dan onboarding. Pengguna
+akan diminta izin lokasi, mengisi gaji bulanan, lalu melakukan login atau
+registrasi.
 
 ## Getting Started
 
