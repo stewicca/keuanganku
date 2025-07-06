@@ -2,6 +2,7 @@ import 'package:expensetracker/presentation/bloc/auth/me/me_bloc.dart';
 import 'package:expensetracker/presentation/bloc/auth/sign_in/sign_in_bloc.dart';
 import 'package:expensetracker/presentation/bloc/auth/sign_up/sign_up_bloc.dart';
 import 'package:expensetracker/presentation/bloc/budget/budgets_bloc.dart';
+import 'package:expensetracker/presentation/bloc/category/categories_bloc.dart';
 import 'package:expensetracker/presentation/pages/auth/sign_in_page.dart';
 import 'package:expensetracker/presentation/pages/auth/sign_up_page.dart';
 import 'package:expensetracker/presentation/pages/expense/expense_page.dart';
@@ -41,7 +42,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<SignInBloc>(create: (context) => di.locator<SignInBloc>()),
         BlocProvider<SignUpBloc>(create: (context) => di.locator<SignUpBloc>()),
         BlocProvider<MeBloc>(create: (context) => di.locator<MeBloc>()),
-        BlocProvider<BudgetsBloc>(create: (context) => di.locator<BudgetsBloc>())
+        BlocProvider<BudgetsBloc>(create: (context) => di.locator<BudgetsBloc>()),
+        BlocProvider<CategoriesBloc>(create: (context) => di.locator<CategoriesBloc>()),
       ],
       child: FutureBuilder(
         future: getInitialPage(),
