@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 
-class Signin extends Equatable {
+class SignUp extends Equatable {
   final int status;
   final String message;
   final String? token;
 
-  const Signin({
+  const SignUp({
     required this.status,
     required this.message,
-    this.token,
+    this.token
   });
 
   @override

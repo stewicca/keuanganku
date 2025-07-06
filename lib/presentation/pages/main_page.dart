@@ -1,12 +1,11 @@
 import 'package:expensetracker/presentation/pages/expense/expense_page.dart';
 import 'package:flutter/material.dart';
-
-import 'auth/signin_page.dart';
+import 'auth/sign_in_page.dart';
 import 'home/home_page.dart';
 
 class MainPage extends StatefulWidget {
   static const ROUTE_NAME = '/main_page';
-  const MainPage({Key? key}) : super(key: key);
+  const MainPage({ super.key });
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -19,7 +18,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _getBody(),
-      bottomNavigationBar: bottomNavigationBar(),
+      bottomNavigationBar: bottomNavigationBar()
     );
   }
 
@@ -32,7 +31,7 @@ class _MainPageState extends State<MainPage> {
         return ExpensePage();
 
       default:
-        return SigninPage();
+        return SignInPage();
     }
   }
 
@@ -47,8 +46,8 @@ class _MainPageState extends State<MainPage> {
       },
       items: [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.money), label: 'Expense'),
-      ],
+        BottomNavigationBarItem(icon: Icon(Icons.money), label: 'Expense')
+      ]
     );
   }
 }

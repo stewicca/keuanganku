@@ -1,14 +1,14 @@
-part of 'signup_bloc.dart';
+part of 'sign_up_bloc.dart';
 
-sealed class SignupEvent extends Equatable {
-  const SignupEvent();
+sealed class SignUpEvent extends Equatable {
+  const SignUpEvent();
 }
 
-class FetchSignup extends SignupEvent {
+class FetchSignUp extends SignUpEvent {
   final String username;
   final String password;
 
-  const FetchSignup({
+  const FetchSignUp({
     required this.username,
     required this.password,
   });

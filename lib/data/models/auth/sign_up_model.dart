@@ -1,33 +1,35 @@
 import 'package:equatable/equatable.dart';
-import '../../../domain/entity/auth/signup.dart';
+import '../../../domain/entity/auth/sign_up.dart';
 
-class SignupModel extends Equatable {
+class SignUpModel extends Equatable {
   final int status;
   final String message;
   final String? token;
 
 
-  const SignupModel({
+  const SignUpModel({
     required this.status,
     required this.message,
-    this.token,
+    this.token
   });
 
-  factory SignupModel.fromJson(Map<String, dynamic> json) {
-    return SignupModel(
+  factory SignUpModel.fromJson(Map<String, dynamic> json) {
+    return SignUpModel(
       status: json['status'] ?? '',
       message: json['message'] ?? '',
-      token: json['data']?['token'],
+      token: json['data']?['token']
     );
   }
 
   Map<String, dynamic> toJson() => {
     'status': status,
     'message': message,
-    'data': {'token': token},
+    'data': {
+      'token': token
+    }
   };
 
-  Signup toEntity() => Signup(
+  SignUp toEntity() => SignUp(
     status: status,
     message: message,
     token: token ?? '',

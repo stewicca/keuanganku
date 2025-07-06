@@ -1,48 +1,57 @@
 import 'dart:io';
-
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
-
+import 'package:expensetracker/domain/entity/auth/refresh.dart';
 import '../../common/exception.dart';
 import '../../common/failure.dart';
-import '../../domain/entity/auth/signin.dart';
-import '../../domain/entity/auth/signup.dart';
+import '../../domain/entity/auth/sign_in.dart';
+import '../../domain/entity/auth/sign_up.dart';
 import '../../domain/repository/auth_repository.dart';
 import '../source/remote/auth_remote_data_source.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource authRemoteDataSource;
 
-  AuthRepositoryImpl({required this.authRemoteDataSource});
+  AuthRepositoryImpl({ required this.authRemoteDataSource });
 
   @override
-  Future<Either<Failure, Signin>> login(String email, String password) async {
+  Future<Either<Failure, SignIn>> login(String username, String password) async {
     try {
-      final result = await authRemoteDataSource.login(email, password);
+      final result = await authRemoteDataSource.login(username, password);
       return Right(result.toEntity());
-    } on ServerException catch (e) {
-      return Left(ServerFailure(e.message));
+    } on ServerException catch (error) {
+      return Left(ServerFailure(error.message));
     } on SocketException {
       return Left(ConnectionFailure('Failed to connect to the network'));
-    } catch (e) {
+    } catch (error) {
       return Left(ServerFailure('Unexpected error'));
     }
   }
 
   @override
-  Future<Either<Failure, Signup>> register(
-    String username,
-    String password,
-  ) async {
+  Future<Either<Failure, SignUp>> register(String username, String password) async {
     try {
       final result = await authRemoteDataSource.register(username, password);
       return Right(result.toEntity());
-    } on ServerException catch (e) {
-      return Left(ServerFailure(e.message));
+    } on ServerException catch (error) {
+      return Left(ServerFailure(error.message));
     } on SocketException {
       return Left(ConnectionFailure('Failed to connect to the network'));
-    } catch (e) {
+    } catch (error) {
       return Left(ServerFailure('Unexpected error'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Refresh>> refresh() async {
+    try {
+      final result = await authRemoteDataSource.refresh();
+      return Right(result.toEntity());
+    } on ServerException catch(error) {
+      return Left(ServerFailure(error.message));
+    } on SocketException {
+      return Left(ConnectionFailure('Failed to connect to the network'));
+    } catch (error) {
+      return Left(ServerFailure('Unexpected Error'));
     }
   }
 }
