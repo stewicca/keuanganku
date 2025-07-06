@@ -224,8 +224,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Budgets Page',
+        title: Text(
+          DateFormat('dd MMMM yyyy').format(DateTime.now()),
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
@@ -249,16 +249,6 @@ class _HomePageState extends State<HomePage> {
               return SingleChildScrollView(
                 child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        DateFormat('dd MMMM yyyy').format(DateTime.now()),
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
                     BlocBuilder<MeBloc, MeState>(
                       builder: (context, meState) {
                         if (meState is MeLoading) {
