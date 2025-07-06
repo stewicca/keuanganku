@@ -1,15 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoggingInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    var token = prefs.get("token");
-
-    options.headers.addAll({ "Authorization": "Bearer $token" });
-
     print("--> ${options.method.toUpperCase()} ${"${options.baseUrl}${options.path}"}");
 
     print("Headers:");

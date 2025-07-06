@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:dartz/dartz.dart';
-import 'package:expensetracker/domain/entity/auth/refresh.dart';
 import '../../common/exception.dart';
 import '../../common/failure.dart';
 import '../../domain/entity/auth/sign_in.dart';
@@ -38,20 +37,6 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(ConnectionFailure('Failed to connect to the network'));
     } catch (error) {
       return Left(ServerFailure('Unexpected error'));
-    }
-  }
-
-  @override
-  Future<Either<Failure, Refresh>> refresh() async {
-    try {
-      final result = await authRemoteDataSource.refresh();
-      return Right(result.toEntity());
-    } on ServerException catch(error) {
-      return Left(ServerFailure(error.message));
-    } on SocketException {
-      return Left(ConnectionFailure('Failed to connect to the network'));
-    } catch (error) {
-      return Left(ServerFailure('Unexpected Error'));
     }
   }
 }
