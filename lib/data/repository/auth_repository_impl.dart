@@ -9,14 +9,14 @@ import '../../domain/repository/auth_repository.dart';
 import '../source/remote/auth_remote_data_source.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final AuthRemoteDataSource authRemoteDataSource;
+  final AuthRemoteDataSource remoteDataSource;
 
-  AuthRepositoryImpl({ required this.authRemoteDataSource });
+  AuthRepositoryImpl({ required this.remoteDataSource });
 
   @override
   Future<Either<Failure, SignIn>> login(String username, String password) async {
     try {
-      final result = await authRemoteDataSource.login(username, password);
+      final result = await remoteDataSource.login(username, password);
       return Right(result.toEntity());
     } on ServerException catch (error) {
       return Left(ServerFailure(error.message));
@@ -30,7 +30,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, SignUp>> register(String username, String password) async {
     try {
-      final result = await authRemoteDataSource.register(username, password);
+      final result = await remoteDataSource.register(username, password);
       return Right(result.toEntity());
     } on ServerException catch (error) {
       return Left(ServerFailure(error.message));
@@ -44,7 +44,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, Me>> me() async {
     try {
-      final result = await authRemoteDataSource.me();
+      final result = await remoteDataSource.me();
       return Right(result.toEntity());
     } on ServerException catch (error) {
       return Left(ServerFailure(error.message));

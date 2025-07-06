@@ -25,7 +25,7 @@ void initializeDependencies() {
   locator.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl(dio: locator()));
   locator.registerLazySingleton<BudgetsRemoteDataSource>(() => BudgetsRemoteDataSourceImpl(dio: locator()));
 
-  locator.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(authRemoteDataSource: locator()));
+  locator.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(remoteDataSource: locator()));
   locator.registerLazySingleton<BudgetsRepository>(() => BudgetsRepositoryImpl(remoteDataSource: locator()));
 
   locator.registerFactory<SignInBloc>(() => SignInBloc(locator()));

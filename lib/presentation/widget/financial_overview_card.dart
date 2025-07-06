@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 
 class InfoCard extends StatelessWidget {
   final String title;
-  final double value;
+  final int budgetAmount;
+  final int currentAmount;
   final Color color;
 
   const InfoCard({
     super.key,
     required this.title,
-    required this.value,
+    required this.budgetAmount,
+    required this.currentAmount,
     required this.color,
   });
 
@@ -21,7 +23,13 @@ class InfoCard extends StatelessWidget {
       child: ListTile(
         leading: Icon(Icons.account_balance_wallet, color: color),
         title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-        subtitle: Text("Rp ${value.toStringAsFixed(0)}", style: TextStyle(color: color, fontSize: 16))
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Budget: Rp ${budgetAmount.toString()}", style: TextStyle(color: color, fontSize: 14)),
+            Text("Remaining: Rp ${currentAmount.toString()}", style: TextStyle(color: color, fontSize: 14)),
+          ],
+        ),
       ),
     );
   }
