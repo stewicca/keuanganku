@@ -1,5 +1,7 @@
+import 'package:expensetracker/presentation/bloc/auth/me/me_bloc.dart';
 import 'package:expensetracker/presentation/bloc/auth/sign_in/sign_in_bloc.dart';
 import 'package:expensetracker/presentation/bloc/auth/sign_up/sign_up_bloc.dart';
+import 'package:expensetracker/presentation/bloc/budget/budgets_bloc.dart';
 import 'package:expensetracker/presentation/pages/auth/sign_in_page.dart';
 import 'package:expensetracker/presentation/pages/auth/sign_up_page.dart';
 import 'package:expensetracker/presentation/pages/expense/expense_page.dart';
@@ -37,7 +39,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<SignInBloc>(create: (context) => di.locator<SignInBloc>()),
-        BlocProvider<SignUpBloc>(create: (context) => di.locator<SignUpBloc>())
+        BlocProvider<SignUpBloc>(create: (context) => di.locator<SignUpBloc>()),
+        BlocProvider<MeBloc>(create: (context) => di.locator<MeBloc>()),
+        BlocProvider<BudgetsBloc>(create: (context) => di.locator<BudgetsBloc>())
       ],
       child: FutureBuilder(
         future: getInitialPage(),
