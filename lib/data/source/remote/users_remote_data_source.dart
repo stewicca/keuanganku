@@ -14,7 +14,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   @override
   Future<UserModel> updateMonthlySalary(int monthlySalary) async {
     try {
-      final response = await dio.put(
+      final response = await dio.patch(
         'users/monthly-salary',
         data: {
           'monthly_salary': monthlySalary,

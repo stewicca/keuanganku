@@ -79,7 +79,6 @@ class _SignInPageState extends State<SignInPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.network('https://www.pikpng.com/pngl/b/283-2837538_login-icon-line-icons-iconscout-login-icon-images.png', height: 150),
                   const SizedBox(height: 20),
                   FormBuilderTextField(
                     name: 'username',
