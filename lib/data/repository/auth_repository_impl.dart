@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import '../../common/exception.dart';
 import '../../common/failure.dart';
-import '../../domain/entity/auth/me.dart';
+import '../../domain/entity/user/user.dart';
 import '../../domain/entity/auth/sign_in.dart';
 import '../../domain/entity/auth/sign_up.dart';
 import '../../domain/repository/auth_repository.dart';
@@ -42,7 +42,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, Me>> me() async {
+  Future<Either<Failure, User>> me() async {
     try {
       final result = await remoteDataSource.me();
       return Right(result.toEntity());

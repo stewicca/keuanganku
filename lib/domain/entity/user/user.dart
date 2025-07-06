@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class Me extends Equatable {
+class User extends Equatable {
   final int status;
   final String message;
   final String id;
@@ -8,7 +8,7 @@ class Me extends Equatable {
   final int? monthlySalary;
   final int? regionUmr;
 
-  const Me({
+  const User({
     required this.status,
     required this.message,
     required this.id,

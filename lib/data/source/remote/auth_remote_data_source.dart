@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 import '../../../common/exception.dart';
-import '../../models/auth/me_model.dart';
+import '../../models/user/user_model.dart';
 import '../../models/auth/sign_up_model.dart';
 import '../../models/auth/sign_in_model.dart';
 
 abstract class AuthRemoteDataSource {
   Future<SignInModel> login(String username, String password);
   Future<SignUpModel> register(String username, String password);
-  Future<MeModel> me();
+  Future<UserModel> me();
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -62,14 +62,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<MeModel> me() async {
+  Future<UserModel> me() async {
     try {
       final response = await dio.get('auth/me');
 
       final data = response.data;
 
       if (response.statusCode == 200) {
-        return MeModel.fromJson(data);
+        return UserModel.fromJson(data);
       } else {
         throw ServerException(data['message'] ?? 'Get me failed');
       }

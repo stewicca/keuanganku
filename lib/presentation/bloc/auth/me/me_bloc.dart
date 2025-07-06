@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import '../../../../domain/entity/auth/me.dart';
+import '../../../../domain/entity/user/user.dart';
 import '../../../../domain/repository/auth_repository.dart';
 
 part 'me_event.dart';

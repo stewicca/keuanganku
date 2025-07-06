@@ -12,7 +12,7 @@ class MeInitial extends MeState {}
 class MeLoading extends MeState {}
 
 class MeSuccess extends MeState {
-  final Me me;
+  final User me;
 
   const MeSuccess({ required this.me });
 }

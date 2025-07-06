@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
-import '../../../domain/entity/auth/me.dart';
+import '../../../domain/entity/user/user.dart';
 
-class MeModel extends Equatable {
+class UserModel extends Equatable {
   final int status;
   final String message;
   final String id;
@@ -9,7 +9,7 @@ class MeModel extends Equatable {
   final int? monthlySalary;
   final int? regionUmr;
 
-  const MeModel({
+  const UserModel({
     required this.status,
     required this.message,
     required this.id,
@@ -18,8 +18,8 @@ class MeModel extends Equatable {
     this.regionUmr,
   });
 
-  factory MeModel.fromJson(Map<String, dynamic> json) {
-    return MeModel(
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
       status: json['status'] ?? 0,
       message: json['message'] ?? '',
       id: json['data']?['id'] ?? '',
@@ -40,7 +40,7 @@ class MeModel extends Equatable {
     }
   };
 
-  Me toEntity() => Me(
+  User toEntity() => User(
     status: status,
     message: message,
     id: id,
