@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../bloc/auth/me/me_bloc.dart';
 import '../../bloc/budget/budgets_bloc.dart';
 import '../../widget/financial_overview_card.dart';
 import '../../../domain/entity/budget/budget.dart';
@@ -34,6 +35,7 @@ class _HomePageState extends State<HomePage> {
     context.read<BudgetsBloc>().add(
       FetchBudgets(year: now.year, month: now.month),
     );
+    context.read<MeBloc>().add(const FetchMe());
   }
 
   List<PieChartSectionData> showingSections(List<Budget> budgets) {
@@ -61,8 +63,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          DateFormat('dd MMMM yyyy').format(DateTime.now()),
+        title: const Text(
+          'Budgets Page',
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
@@ -80,25 +82,48 @@ class _HomePageState extends State<HomePage> {
             return SingleChildScrollView(
               child: Column(
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      DateFormat('dd MMMM yyyy').format(DateTime.now()),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  BlocBuilder<MeBloc, MeState>(
+                    builder: (context, meState) {
+                      if (meState is MeLoading) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                      if (meState is MeSuccess) {
+                        final salary = meState.me.monthlySalary ?? 0;
+                        return Text('Monthly Salary: Rp $salary', style: const TextStyle(fontSize: 16));
+                      }
+
+                      if (meState is MeError) {
+                        return Text(meState.message);
+                      }
+
+                      return const SizedBox.shrink();
+                    },
+                  ),
                   AspectRatio(
-                    aspectRatio: 1,
+                    aspectRatio: 1.5,
                     child: PieChart(
                       PieChartData(
                         pieTouchData: PieTouchData(
-                          touchCallback:
-                              (FlTouchEvent event, pieTouchResponse) {
-                                setState(() {
-                                  if (!event.isInterestedForInteractions ||
-                                      pieTouchResponse == null ||
-                                      pieTouchResponse.touchedSection == null) {
-                                    touchedIndex = -1;
-                                    return;
-                                  }
-                                  touchedIndex = pieTouchResponse
-                                      .touchedSection!
-                                      .touchedSectionIndex;
-                                });
-                              },
+                          touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                            setState(() {
+                              if (!event.isInterestedForInteractions || pieTouchResponse == null || pieTouchResponse.touchedSection == null) {
+                                touchedIndex = -1;
+                                return;
+                              }
+                              touchedIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
+                            });
+                          },
                         ),
                         borderData: FlBorderData(show: false),
                         sectionsSpace: 0,

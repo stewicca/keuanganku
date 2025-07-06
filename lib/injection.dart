@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:expensetracker/presentation/bloc/auth/me/me_bloc.dart';
 import 'package:expensetracker/presentation/bloc/auth/sign_in/sign_in_bloc.dart';
 import 'package:expensetracker/presentation/bloc/auth/sign_up/sign_up_bloc.dart';
 import 'package:expensetracker/presentation/bloc/budget/budgets_bloc.dart';
@@ -28,6 +29,7 @@ void initializeDependencies() {
   locator.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(remoteDataSource: locator()));
   locator.registerLazySingleton<BudgetsRepository>(() => BudgetsRepositoryImpl(remoteDataSource: locator()));
 
+  locator.registerFactory<MeBloc>(() => MeBloc(locator()));
   locator.registerFactory<SignInBloc>(() => SignInBloc(locator()));
   locator.registerFactory<SignUpBloc>(() => SignUpBloc(locator()));
   locator.registerFactory<BudgetsBloc>(() => BudgetsBloc(locator()));
